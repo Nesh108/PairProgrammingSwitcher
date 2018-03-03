@@ -11,9 +11,10 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import java.io.IOException;
 import java.util.Random;
 
-public class TimerActivity extends AppCompatActivity {
+public class TimerActivity extends AppCompatActivity  implements MediaPlayer.OnErrorListener {
 
     EditText timerEditText;
     int durationMinutes,  durationSeconds, intervalMinutes, intervalSeconds;
@@ -26,6 +27,7 @@ public class TimerActivity extends AppCompatActivity {
     int[][] swapSounds = {{R.raw.swap1, 12}, {R.raw.swap2, 8}, {R.raw.swap3, 6}, {R.raw.swap4, 8}, {R.raw.swap5, 10}, {R.raw.swap6, 4}, {R.raw.swap7, 12}, {R.raw.swap8, 8}, {R.raw.swap9, 8}, {R.raw.swap10, 8}, {R.raw.swap11, 8}, {R.raw.swap12, 8}};
     int[][] timesupSounds = {{R.raw.timesup1, 9},{R.raw.timesup2, 8},{R.raw.timesup3, 7},{R.raw.timesup4, 7},{R.raw.timesup5_rare, 1},{R.raw.timesup6, 8},{R.raw.timesup7, 8},{R.raw.timesup8, 8},{R.raw.timesup9, 8},{R.raw.timesup10, 8},{R.raw.timesup11, 8},{R.raw.timesup12, 8},{R.raw.timesup13, 8},{R.raw.timesup14, 4}};
     int[][] goSounds = {{R.raw.go1, 10},{R.raw.go2, 10},{R.raw.go3, 10},{R.raw.go4, 10},{R.raw.go5, 10},{R.raw.go6, 10},{R.raw.go7, 10},{R.raw.go8, 10},{R.raw.go9, 10},{R.raw.go10, 10},};
+    int backgroundSound = R.raw.mr_sunny_face;
     MediaPlayer mp;
     Random r = new Random();
 
@@ -35,7 +37,7 @@ public class TimerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timer);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        mp = MediaPlayer.create(this, R.raw.background_sound);
+        mp = MediaPlayer.create(this, backgroundSound);
         timerEditText = findViewById(R.id.timerEditText);
         timerEditText.setKeyListener(null);
         pauseButton = findViewById(R.id.pauseButton);
@@ -151,23 +153,42 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     void PlayBackgroundSound() {
-        PlaySound(R.raw.background_sound, true);
+        PlaySound(backgroundSound, true);
     }
 
     void PlaySound(int id, boolean loop) {
-        StopSound();
-        mp = MediaPlayer.create(this, id);
-        mp.setLooping(loop);
-        mp.start();
+        try {
+            StopSound();
+            mp = MediaPlayer.create(this, id);
+            mp.setOnErrorListener(this);
+            mp.setLooping(loop);
+            mp.start();
+            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    mp.release();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     void StopSound() {
         try{
-            if(mp.isPlaying()) {
+            if(mp != null && mp.isPlaying()) {
                 mp.stop();
-                mp.release();
             }
         } catch (Exception e) {
         }
+        mp.release();
+        mp = null;
+    }
+
+    @Override
+    public boolean onError(MediaPlayer mp, int what, int extra)
+    {
+        StopSound();
+        return false;
     }
 }
