@@ -25,8 +25,8 @@ public class TimerActivity extends AppCompatActivity  implements MediaPlayer.OnE
     boolean isTimerPaused = false;
 
     int[][] swapSounds = {{R.raw.swap1, 12}, {R.raw.swap2, 8}, {R.raw.swap3, 6}, {R.raw.swap4, 8}, {R.raw.swap5, 10}, {R.raw.swap6, 4}, {R.raw.swap7, 12}, {R.raw.swap8, 8}, {R.raw.swap9, 8}, {R.raw.swap10, 8}, {R.raw.swap11, 8}, {R.raw.swap12, 8}};
-    int[][] timesupSounds = {{R.raw.timesup1, 9},{R.raw.timesup2, 8},{R.raw.timesup3, 7},{R.raw.timesup4, 7},{R.raw.timesup5_rare, 1},{R.raw.timesup6, 8},{R.raw.timesup7, 8},{R.raw.timesup8, 8},{R.raw.timesup9, 8},{R.raw.timesup10, 8},{R.raw.timesup11, 8},{R.raw.timesup12, 8},{R.raw.timesup13, 8},{R.raw.timesup14, 4}};
-    int[][] goSounds = {{R.raw.go1, 10},{R.raw.go2, 10},{R.raw.go3, 10},{R.raw.go4, 10},{R.raw.go5, 10},{R.raw.go6, 10},{R.raw.go7, 10},{R.raw.go8, 10},{R.raw.go9, 10},{R.raw.go10, 10},};
+    int[][] timesupSounds = {{R.raw.timesup1, 9},{R.raw.timesup2, 8},{R.raw.timesup3, 7},{R.raw.timesup4, 7},{R.raw.timesup5_rare, 1},{R.raw.timesup6, 8},{R.raw.timesup7, 8},{R.raw.timesup8, 8},{R.raw.timesup9, 8},{R.raw.timesup10, 7},{R.raw.timesup11, 6},{R.raw.timesup12, 6},{R.raw.timesup13, 6},{R.raw.timesup14, 2},{R.raw.timesup15, 2},{R.raw.timesup16, 2},{R.raw.timesup17, 1}};
+    int[][] goSounds = {{R.raw.go1, 10},{R.raw.go2, 10},{R.raw.go3, 10},{R.raw.go4, 10},{R.raw.go5, 10},{R.raw.go6, 10},{R.raw.go7, 10},{R.raw.go8, 5},{R.raw.go9, 5},{R.raw.go10, 5},{R.raw.go11, 5},{R.raw.go12, 5},{R.raw.go13, 2},{R.raw.go14, 2},{R.raw.go15, 1}};
     int backgroundSound = R.raw.mr_sunny_face;
     MediaPlayer mp;
     Random r = new Random();
