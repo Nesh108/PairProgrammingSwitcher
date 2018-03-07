@@ -181,8 +181,10 @@ public class TimerActivity extends AppCompatActivity  implements MediaPlayer.OnE
             }
         } catch (Exception e) {
         }
-        mp.release();
-        mp = null;
+        if(mp != null) {
+            mp.release();
+            mp = null;
+        }
     }
 
     @Override
